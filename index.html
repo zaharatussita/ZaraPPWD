@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Zaharatussita</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">zaharatussita<span>.</span></div>
+
+    <nav>
+        <a href="#profil">Profil</a>
+        <a href="#skill">Skill</a>
+        <a href="#produk">Produk</a>
+        <button id="btnCart" class="cart-btn">
+            🛍 Keranjang <b id="cartCount">0</b>
+        </button>
+    </nav>
+</header>
+
+<main>
+
+    <!-- STUDI KASUS 4: PROFILE -->
+    <section id="profil" class="profile-section">
+        <div class="profile-card">
+
+            <div class="profile-photo">
+                <div class="photo-circle">Z</div>
+            </div>
+
+            <div class="profile-info">
+                <p class="label">MY PROFILE</p>
+                <h1 id="profileName">Zaharatussita</h1>
+
+                <h3 id="profileJob">Mahasiswa Sistem Informasi</h3>
+
+                <p id="profileDescription" class="description">
+                    Saya adalah mahasiswa Sistem Informasi yang tertarik
+                    dengan teknologi, desain website, dan pengembangan sistem.
+                </p>
+
+                <div class="profile-details">
+                    <p>📍 <span id="profileLocation">Pontianak, Indonesia</span></p>
+                    <p>✉ <span id="profileEmail">zaharatussita@email.com</span></p>
+                </div>
+
+                <div class="profile-buttons">
+                    <button id="btnEditProfile" class="primary-btn">
+                        ✎ Ubah Profil
+                    </button>
+
+                    <button id="btnMessage" class="secondary-btn">
+                        ♡ Kirim Pesan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILL -->
+    <section id="skill" class="section">
+        <div class="section-title">
+            <p>MY SKILLS</p>
+            <h2>Keahlian</h2>
+        </div>
+
+        <div class="skill-grid">
+            <div class="skill-card">
+                <div class="skill-icon">HTML</div>
+                <h3>HTML</h3>
+                <p>Membuat struktur halaman website.</p>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-icon">CSS</div>
+                <h3>CSS</h3>
+                <p>Membuat tampilan website lebih menarik.</p>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-icon">JS</div>
+                <h3>JavaScript</h3>
+                <p>Membuat website menjadi interaktif.</p>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-icon">JQ</div>
+                <h3>jQuery</h3>
+                <p>Manipulasi DOM dan interaksi pengguna.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FITUR TAMBAHAN: PRODUK -->
+    <section id="produk" class="section product-section">
+        <div class="section-title">
+            <p>ADDITIONAL FEATURE</p>
+            <h2>Produk Pilihan</h2>
+        </div>
+
+        <div class="product-grid">
+
+            <article class="product-card">
+                <div class="product-image pink">✿</div>
+                <div class="product-info">
+                    <span>Beauty</span>
+                    <h3>Soft Pink Pouch</h3>
+                    <p>Rp 35.000</p>
+                    <button class="add-cart"
+                        data-id="1"
+                        data-nama="Soft Pink Pouch"
+                        data-harga="35000">
+                        + Tambah
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card">
+                <div class="product-image rose">♡</div>
+                <div class="product-info">
+                    <span>Accessories</span>
+                    <h3>Rose Hair Clip</h3>
+                    <p>Rp 25.000</p>
+                    <button class="add-cart"
+                        data-id="2"
+                        data-nama="Rose Hair Clip"
+                        data-harga="25000">
+                        + Tambah
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card">
+                <div class="product-image mauve">☁</div>
+                <div class="product-info">
+                    <span>Lifestyle</span>
+                    <h3>Daily Tote Bag</h3>
+                    <p>Rp 75.000</p>
+                    <button class="add-cart"
+                        data-id="3"
+                        data-nama="Daily Tote Bag"
+                        data-harga="75000">
+                        + Tambah
+                    </button>
+                </div>
+            </article>
+
+            <article class="product-card">
+                <div class="product-image berry">✦</div>
+                <div class="product-info">
+                    <span>Stationery</span>
+                    <h3>Pretty Notes</h3>
+                    <p>Rp 20.000</p>
+                    <button class="add-cart"
+                        data-id="4"
+                        data-nama="Pretty Notes"
+                        data-harga="20000">
+                        + Tambah
+                    </button>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div>
+            <p class="label">ABOUT THIS PROJECT</p>
+            <h2>Website Profil Interaktif</h2>
+            <p>
+                Website ini dibuat untuk menerapkan manipulasi DOM,
+                event handling, efek visual, validasi form, dan
+                penyimpanan data menggunakan jQuery.
+            </p>
+        </div>
+    </section>
+
+</main>
+
+<!-- MODAL EDIT PROFIL -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <button class="close">&times;</button>
+
+        <h2>Ubah Profil</h2>
+        <p class="modal-desc">
+            Edit informasi profil kemudian simpan perubahan.
+        </p>
+
+        <form id="profileForm">
+
+            <label for="editName">Nama</label>
+            <input type="text" id="editName">
+
+            <label for="editJob">Pekerjaan / Status</label>
+            <input type="text" id="editJob">
+
+            <label for="editDescription">Deskripsi</label>
+            <textarea id="editDescription" rows="4"></textarea>
+
+            <label for="editLocation">Lokasi</label>
+            <input type="text" id="editLocation">
+
+            <label for="editEmail">Email</label>
+            <input type="email" id="editEmail">
+
+            <small id="profileError" class="error">
+                Semua data harus diisi dengan benar.
+            </small>
+
+            <button type="submit" class="primary-btn full">
+                Simpan Profil
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL KIRIM PESAN -->
+<div id="messageModal" class="modal">
+    <div class="modal-content">
+        <button class="close">&times;</button>
+
+        <h2>Tinggalkan Pesan</h2>
+        <p class="modal-desc">
+            Isi form berikut untuk mengirim pesan.
+        </p>
+
+        <form id="contactForm">
+
+            <label for="nama">Nama Lengkap</label>
+            <input type="text" id="nama" placeholder="Masukkan nama">
+            <small id="errNama" class="error">
+                Nama minimal 3 karakter.
+            </small>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="contoh@email.com">
+            <small id="errEmail" class="error">
+                Masukkan email yang valid.
+            </small>
+
+            <label for="pesan">Pesan</label>
+            <textarea id="pesan" rows="5"
+                placeholder="Tulis pesan minimal 10 karakter"></textarea>
+            <small id="errPesan" class="error">
+                Pesan minimal 10 karakter.
+            </small>
+
+            <button type="submit" class="primary-btn full">
+                ✉ Kirim Pesan
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL KERANJANG -->
+<div id="cartModal" class="modal">
+    <div class="modal-content cart-content">
+        <button class="close">&times;</button>
+
+        <h2>Keranjang Belanja</h2>
+
+        <div id="cartItems"></div>
+
+        <div class="cart-summary">
+
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <strong id="cartSubtotal">Rp 0</strong>
+            </div>
+
+            <div class="summary-row discount-row">
+                <span>Diskon 10%</span>
+                <strong id="cartDiscount">Rp 0</strong>
+            </div>
+
+            <div class="summary-row total-row">
+                <span>Total</span>
+                <strong id="cartTotal">Rp 0</strong>
+            </div>
+
+        </div>
+
+        <button id="btnCheckout" class="primary-btn full">
+            Checkout
+        </button>
+    </div>
+</div>
+
+<!-- MODAL DATA PEMBELI -->
+<div id="buyerModal" class="modal">
+    <div class="modal-content">
+        <button class="close">&times;</button>
+
+        <h2>Data Pembeli</h2>
+        <p class="modal-desc">
+            Lengkapi data sebelum checkout.
+        </p>
+
+        <form id="buyerForm">
+
+            <label for="buyerName">Nama Lengkap</label>
+            <input type="text" id="buyerName"
+                placeholder="Masukkan nama lengkap">
+            <small id="errBuyerName" class="error">
+                Nama minimal 3 karakter.
+            </small>
+
+            <label for="buyerAddress">Alamat</label>
+            <textarea id="buyerAddress" rows="3"
+                placeholder="Masukkan alamat lengkap"></textarea>
+            <small id="errBuyerAddress" class="error">
+                Alamat wajib diisi.
+            </small>
+
+            <label for="buyerPhone">No. HP</label>
+            <input type="text" id="buyerPhone"
+                placeholder="08xxxxxxxxxx">
+            <small id="errBuyerPhone" class="error">
+                No. HP harus berupa angka dan minimal 10 digit.
+            </small>
+
+            <button type="submit" class="primary-btn full">
+                Konfirmasi Checkout
+            </button>
+        </form>
+    </div>
+</div>
+
+<div id="successMessage" class="success-message">
+    ✓ Pesan berhasil dikirim!
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
