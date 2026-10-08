@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Zaharatussita | ZARA HANDMADE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <a href="index.html" class="logo">ZARA <span>HANDMADE</span></a>
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <nav id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="index.html#produk">Products</a>
+        <a href="profil.html" class="current">About Me</a>
+        <a href="#kontak">Contact</a>
+    </nav>
+</header>
+
+<main class="profile-page">
+    <section class="profile-hero">
+        <p class="eyebrow">THE MAKER BEHIND ZARA HANDMADE</p>
+        <h1>Hi, I'm <span>Zaharatussita.</span></h1>
+        <p>Kenalan dengan orang di balik barang-barang kecil dan lucu dari ZARA HANDMADE.</p>
+    </section>
+
+    <section class="profile-card" id="profileCard">
+        <div class="profile-photo">
+            <img id="profileImage" src="Gambar/profil-zaharatussita.jpg" alt="Foto Profil Zaharatussita"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="avatar-fallback">Z</div>
+        </div>
+
+        <div class="profile-info">
+            <p class="eyebrow">MY PROFILE</p>
+            <h2 id="profileName">Zaharatussita</h2>
+            <h3 id="profileRole">Owner & Handmade Creator</h3>
+            <p id="profileBio">Saya membuat dan memilih barang-barang handmade yang unik, lucu, dan cocok untuk hadiah maupun koleksi pribadi.</p>
+
+            <div class="info-list">
+                <p>📍 <span id="profileLocation">Pontianak, Indonesia</span></p>
+                <p>✉ <span id="profileEmail">zara.handmade@example.com</span></p>
+            </div>
+
+            <div class="skills" id="skillList">
+                <span>Handmade</span>
+                <span>Creative</span>
+                <span>Crafting</span>
+                <span>Small Business</span>
+            </div>
+
+            <button id="editProfile" class="primary-btn">✎ Ubah Profil</button>
+            <button id="profileEffect" class="outline-btn">♡ Efek Profile</button>
+        </div>
+    </section>
+
+    <section class="contact-section" id="kontak">
+        <div class="contact-intro">
+            <p class="eyebrow">LET'S TALK</p>
+            <h2>Tinggalkan Pesan ♡</h2>
+            <p>Punya pertanyaan, ide custom, atau sekadar ingin menyapa? Kirim pesan lewat form di samping.</p>
+        </div>
+
+        <form class="contact-form" id="contactForm">
+            <label>Nama Lengkap
+                <input type="text" id="nama" placeholder="Nama kamu">
+                <small id="errNama">Nama minimal 3 karakter.</small>
+            </label>
+            <label>Email
+                <input type="text" id="email" placeholder="contoh@email.com">
+                <small id="errEmail">Masukkan email yang valid.</small>
+            </label>
+            <label>Pesan
+                <textarea id="pesan" placeholder="Tulis pesan minimal 10 karakter..."></textarea>
+                <small id="errPesan">Pesan minimal 10 karakter.</small>
+            </label>
+            <button type="submit" class="primary-btn full">Kirim Pesan ✦</button>
+            <div class="success-message" id="successMessage">Pesan berhasil dikirim! Terima kasih ♡</div>
+        </form>
+    </section>
+</main>
+
+<footer>
+    <div>
+        <h3>ZARA HANDMADE</h3>
+        <p>Made by Zaharatussita with love.</p>
+    </div>
+    <a href="index.html">← Kembali ke Toko</a>
+</footer>
+
+<div class="modal" id="profileModal">
+    <div class="modal-box">
+        <button class="modal-close" id="closeProfileModal">×</button>
+        <p class="eyebrow">EDIT PROFILE</p>
+        <h2>Ubah Profil</h2>
+        <form id="profileForm">
+            <label>Nama
+                <input type="text" id="editName" value="Zaharatussita">
+            </label>
+            <label>Role
+                <input type="text" id="editRole" value="Owner & Handmade Creator">
+            </label>
+            <label>Bio
+                <textarea id="editBio">Saya membuat dan memilih barang-barang handmade yang unik, lucu, dan cocok untuk hadiah maupun koleksi pribadi.</textarea>
+            </label>
+            <label>Lokasi
+                <input type="text" id="editLocation" value="Pontianak, Indonesia">
+            </label>
+            <label>Email
+                <input type="text" id="editEmail" value="zara.handmade@example.com">
+            </label>
+            <button class="primary-btn full" type="submit">Simpan Perubahan</button>
+        </form>
+    </div>
+</div>
+
+<div class="toast" id="profileToast">Profil berhasil diperbarui ♡</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZARA HANDMADE | Handmade with Love</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <a href="index.html" class="logo">ZARA <span>HANDMADE</span></a>
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <nav id="navMenu">
+        <a href="#home">Home</a>
+        <a href="#produk">Products</a>
+        <a href="profil.html">About Me</a>
+        <a href="profil.html#kontak">Contact</a>
+        <button id="btnCart" class="cart-btn">🛒 <span id="cartCount">0</span></button>
+    </nav>
+</header>
+
+<main>
+    <section class="hero" id="home">
+        <div class="hero-text">
+            <p class="eyebrow">HANDMADE • UNIQUE • CUTE</p>
+            <h1>Little things,<br><span>made with love.</span></h1>
+            <p>Temukan berbagai barang handmade unik dan lucu yang dibuat untuk menemani hari-harimu.</p>
+            <a href="#produk" class="primary-btn">Lihat Produk ✦</a>
+        </div>
+        <div class="hero-card">
+            <div class="hero-circle">♡</div>
+            <p>made slowly<br>made specially</p>
+        </div>
+    </section>
+
+    <section class="section" id="produk">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">OUR COLLECTION</p>
+                <h2>Temukan barang favoritmu</h2>
+            </div>
+            <input type="text" id="searchInput" placeholder="Cari produk...">
+        </div>
+
+        <div class="filter-row">
+            <button class="filter active" data-category="all">Semua</button>
+            <button class="filter" data-category="accessories">Accessories</button>
+            <button class="filter" data-category="decor">Home Decor</button>
+            <button class="filter" data-category="gift">Gift</button>
+            <button class="filter" data-category="pouch">Pouch</button>
+        </div>
+
+        <div class="product-grid" id="productList"></div>
+    </section>
+
+    <section class="mini-about">
+        <div>
+            <p class="eyebrow">MEET THE MAKER</p>
+            <h2>Dibuat dengan detail kecil yang berarti.</h2>
+            <p>ZARA HANDMADE adalah toko kecil yang menghadirkan barang handmade unik untuk hadiah, dekorasi, dan teman sehari-hari.</p>
+            <a href="profil.html" class="outline-btn">Kenal Zaharatussita →</a>
+        </div>
+        <div class="quote-card">
+            <span>“</span>
+            <p>Setiap barang punya cerita. Semoga barang kecil dari kami bisa jadi bagian dari cerita kamu.</p>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div>
+        <h3>ZARA HANDMADE</h3>
+        <p>Handmade little things, made with love.</p>
+    </div>
+    <p>© 2026 ZARA HANDMADE</p>
+</footer>
+
+<aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+        <h2>Your Cart</h2>
+        <button id="closeCart">×</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-summary">
+        <div><span>Subtotal</span><strong id="subtotal">Rp0</strong></div>
+        <div><span>Diskon</span><strong id="discount">Rp0</strong></div>
+        <div class="total"><span>Total</span><strong id="total">Rp0</strong></div>
+        <button id="checkoutBtn" class="primary-btn full">Checkout</button>
+    </div>
+</aside>
+
+<div class="overlay" id="overlay"></div>
+<div class="toast" id="toast">Produk ditambahkan ♡</div>
+
+<div class="modal" id="buyerModal">
+    <div class="modal-box">
+        <button class="modal-close" id="closeModal">×</button>
+        <p class="eyebrow">CHECKOUT</p>
+        <h2>Data Pembeli</h2>
+        <form id="buyerForm">
+            <label>Nama Lengkap
+                <input type="text" id="buyerName" placeholder="Nama kamu">
+                <small id="nameError"></small>
+            </label>
+            <label>Alamat
+                <textarea id="buyerAddress" placeholder="Alamat lengkap"></textarea>
+                <small id="addressError"></small>
+            </label>
+            <label>No. HP
+                <input type="text" id="buyerPhone" placeholder="08xxxxxxxxxx">
+                <small id="phoneError"></small>
+            </label>
+            <button class="primary-btn full" type="submit">Pesan Sekarang ♡</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
