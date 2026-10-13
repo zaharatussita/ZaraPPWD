@@ -1,448 +1,394 @@
-let cart = [];
-
-// =====================================================
-// STUDI KASUS 4 - MANIPULASI DOM
-// =====================================================
-
-// Tombol Ubah Profil
-$("#btnEditProfile").click(function () {
-
-    $("#editName").val($("#profileName").text());
-    $("#editJob").val($("#profileJob").text());
-    $("#editDescription").val($("#profileDescription").text());
-    $("#editLocation").val($("#profileLocation").text());
-    $("#editEmail").val($("#profileEmail").text());
-
-    $("#profileError").hide();
-
-    $("#editModal").fadeIn(250);
-});
-
-// Simpan perubahan profil
-$("#profileForm").submit(function (e) {
-    e.preventDefault();
-
-    const nama = $("#editName").val().trim();
-    const job = $("#editJob").val().trim();
-    const deskripsi = $("#editDescription").val().trim();
-    const lokasi = $("#editLocation").val().trim();
-    const email = $("#editEmail").val().trim();
-
-    if (
-        nama.length < 3 ||
-        job.length < 3 ||
-        deskripsi.length < 5 ||
-        lokasi.length < 3 ||
-        !email.includes("@")
-    ) {
-        $("#profileError").fadeIn();
-        return;
-    }
-
-    // Manipulasi DOM dengan .text()
-    $("#profileName").text(nama);
-    $("#profileJob").text(job);
-    $("#profileDescription").text(deskripsi);
-    $("#profileLocation").text(lokasi);
-    $("#profileEmail").text(email);
-
-    $("#editModal").fadeOut(200);
-
-    showSuccess("✓ Profil berhasil diperbarui!");
-});
-
-// =====================================================
-// STUDI KASUS 4 - FORM PESAN + VALIDASI
-// =====================================================
-
-// Buka form pesan
-$("#btnMessage").click(function () {
-    $("#messageModal").fadeIn(250);
-});
-
-// Validasi email
-function validEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-// Submit form pesan
-$("#contactForm").submit(function (e) {
-    e.preventDefault();
-
-    const nama = $("#nama").val().trim();
-    const email = $("#email").val().trim();
-    const pesan = $("#pesan").val().trim();
-
-    let valid = true;
-
-    if (nama.length < 3) {
-        $("#errNama").show();
-        valid = false;
-    } else {
-        $("#errNama").hide();
-    }
-
-    if (!validEmail(email)) {
-        $("#errEmail").show();
-        valid = false;
-    } else {
-        $("#errEmail").hide();
-    }
-
-    if (pesan.length < 10) {
-        $("#errPesan").show();
-        valid = false;
-    } else {
-        $("#errPesan").hide();
-    }
-
-    if (!valid) {
-        return;
-    }
-
-    $("#messageModal").fadeOut(200);
-
-    $("#contactForm")[0].reset();
-
-    showSuccess("✓ Pesan berhasil dikirim!");
-});
-
-// Validasi real-time nama
-$("#nama").on("input", function () {
-    if ($(this).val().trim().length >= 3) {
-        $("#errNama").hide();
-    }
-});
-
-// Validasi real-time email
-$("#email").on("input", function () {
-    if (validEmail($(this).val().trim())) {
-        $("#errEmail").hide();
-    }
-});
-
-// Validasi real-time pesan
-$("#pesan").on("input", function () {
-    if ($(this).val().trim().length >= 10) {
-        $("#errPesan").hide();
-    }
-});
-
-// =====================================================
-// FITUR TAMBAHAN - KERANJANG
-// =====================================================
-
-function rupiah(angka) {
-    return "Rp " + angka.toLocaleString("id-ID");
-}
-
-// Tambah produk
-$(".add-cart").click(function () {
-
-    const id = $(this).data("id");
-    const nama = $(this).data("nama");
-    const harga = Number($(this).data("harga"));
-
-    const produk = cart.find(item => item.id == id);
-
-    if (produk) {
-        produk.qty++;
-    } else {
-        cart.push({
-            id: id,
-            nama: nama,
-            harga: harga,
-            qty: 1
-        });
-    }
-
-    updateCartUI();
-
-    $(this).text("✓ Ditambahkan");
-
-    setTimeout(() => {
-        $(this).text("+ Tambah");
-    }, 800);
-});
-
-// Update UI keranjang
-function updateCartUI() {
-
-    let html = "";
-    let totalQty = 0;
-
-    if (cart.length === 0) {
-
-        html = `
-            <div class="empty-cart">
-                Keranjang masih kosong ♡
-            </div>
-        `;
-
-    } else {
-
-        cart.forEach(item => {
-
-            totalQty += item.qty;
-
-            html += `
-                <div class="cart-row">
-
-                    <div class="cart-row-info">
-                        <h4>${item.nama}</h4>
-                        <p>${rupiah(item.harga)}</p>
-                    </div>
-
-                    <div class="qty-control">
-                        <button class="minus" data-id="${item.id}">
-                            −
-                        </button>
-
-                        <span>${item.qty}</span>
-
-                        <button class="plus" data-id="${item.id}">
-                            +
-                        </button>
-                    </div>
-
-                    <button class="remove-item" data-id="${item.id}">
-                        ×
-                    </button>
-
-                </div>
-            `;
-        });
-    }
-
-    $("#cartItems").html(html);
-    $("#cartCount").text(totalQty);
-
-    // =================================================
-    // LATIHAN 1
-    // Diskon 10% jika total > Rp100.000
-    // =================================================
-
-    let totalHarga = cart.reduce(
-        (sum, item) => sum + (item.harga * item.qty),
-        0
-    );
-
-    let diskon = 0;
-    let totalAkhir = totalHarga;
-
-    if (totalHarga > 100000) {
-
-        diskon = totalHarga * 0.1;
-        totalAkhir = totalHarga - diskon;
-
-    }
-
-    $("#cartSubtotal").html(rupiah(totalHarga));
-    $("#cartDiscount").html("- " + rupiah(diskon));
-    $("#cartTotal").html(rupiah(totalAkhir));
-}
-
-// Tambah jumlah
-$(document).on("click", ".plus", function () {
-
-    const id = $(this).data("id");
-    const item = cart.find(item => item.id == id);
-
-    if (item) {
-        item.qty++;
-        updateCartUI();
-    }
-});
-
-// Kurangi jumlah
-$(document).on("click", ".minus", function () {
-
-    const id = $(this).data("id");
-    const item = cart.find(item => item.id == id);
-
-    if (item) {
-
-        item.qty--;
-
-        if (item.qty <= 0) {
-            cart = cart.filter(item => item.id != id);
-        }
-
-        updateCartUI();
-    }
-});
-
-// Hapus produk
-$(document).on("click", ".remove-item", function () {
-
-    const id = $(this).data("id");
-
-    cart = cart.filter(item => item.id != id);
-
-    updateCartUI();
-});
-
-// Buka keranjang
-$("#btnCart").click(function () {
-    $("#cartModal").fadeIn(250);
-});
-
-// =====================================================
-// MODAL
-// =====================================================
-
-// Tutup modal
-$(".close").click(function () {
-    $(this).closest(".modal").fadeOut(200);
-});
-
-// Tutup jika klik area luar
-$(".modal").click(function (e) {
-
-    if (e.target === this) {
-        $(this).fadeOut(200);
-    }
-
-});
-
-// =====================================================
-// LATIHAN 3
-// FORM DATA PEMBELI
-// =====================================================
-
-$("#btnCheckout").click(function () {
-
-    if (cart.length === 0) {
-
-        alert(
-            "Keranjang masih kosong. Silakan pilih produk terlebih dahulu."
-        );
-
-        return;
-    }
-
-    $("#cartModal").fadeOut(200);
-    $("#buyerModal").fadeIn(250);
-});
-
-// Validasi nomor HP
-function validasiNoHP(nohp) {
-    return /^[0-9]{10,15}$/.test(nohp);
-}
-
-// Submit checkout
-$("#buyerForm").submit(function (e) {
-
-    e.preventDefault();
-
-    const nama = $("#buyerName").val().trim();
-    const alamat = $("#buyerAddress").val().trim();
-    const nohp = $("#buyerPhone").val().trim();
-
-    let valid = true;
-
-    if (nama.length < 3) {
-        $("#errBuyerName").show();
-        valid = false;
-    } else {
-        $("#errBuyerName").hide();
-    }
-
-    if (alamat.length < 5) {
-        $("#errBuyerAddress").show();
-        valid = false;
-    } else {
-        $("#errBuyerAddress").hide();
-    }
-
-    if (!validasiNoHP(nohp)) {
-        $("#errBuyerPhone").show();
-        valid = false;
-    } else {
-        $("#errBuyerPhone").hide();
-    }
-
-    if (!valid) {
-        return;
-    }
-
-    let qty = cart.reduce(
-        (sum, item) => sum + item.qty,
-        0
-    );
-
-    let total = cart.reduce(
-        (sum, item) => sum + (item.harga * item.qty),
-        0
-    );
-
-    if (total > 100000) {
-        total -= total * 0.1;
-    }
-
-    // =================================================
-    // LATIHAN 2
-    // Simpan riwayat ke localStorage
-    // =================================================
-
-    simpanRiwayat(total, qty);
-
-    $("#buyerModal").fadeOut(200);
-
-    showSuccess("✓ Pesanan berhasil dibuat!");
-
-    cart = [];
-
-    updateCartUI();
-
-    $("#buyerForm")[0].reset();
-});
-
-// Fungsi simpan riwayat
-function simpanRiwayat(total, qty) {
-
-    const riwayat =
-        JSON.parse(localStorage.getItem("riwayat")) || [];
-
-    riwayat.push({
-        tanggal: new Date().toISOString(),
-        total: total,
-        qty: qty
+/* ============================================================
+   WARUNG ICE CREAM - JQUERY SCRIPT
+   Praktikum Pemrograman Web Dasar
+   ============================================================ */
+
+   
+$(document).ready(function() {
+
+  /* =====================================================
+     1. DATA PRODUK
+     ===================================================== */
+  const produkData = [
+    { id: 1, nama: 'Es Krim Cokelat', harga: 15000, kategori: 'es-krim', icon: '🍫', desc: 'Cokelat premium lembut', badge: 'Best Seller', badgeType: 'hot' },
+    { id: 2, nama: 'Es Krim Strawberry', harga: 15000, kategori: 'es-krim', icon: '🍓', desc: 'Stroberi segar asli', badge: 'Favorit', badgeType: '' },
+    { id: 3, nama: 'Es Krim Vanilla', harga: 13000, kategori: 'es-krim', icon: '🍦', desc: 'Vanilla klasik creamy', badge: '', badgeType: '' },
+    { id: 4, nama: 'Es Krim Mangga', harga: 16000, kategori: 'es-krim', icon: '🥭', desc: 'Mangga manis tropis', badge: 'Baru', badgeType: '' },
+    { id: 5, nama: 'Sundae Cokelat', harga: 25000, kategori: 'sundae', icon: '🍨', desc: 'Sundae dengan topping cokelat', badge: 'Best Seller', badgeType: 'hot' },
+    { id: 6, nama: 'Sundae Keju', harga: 27000, kategori: 'sundae', icon: '🧀', desc: 'Sundae topping keju melimpah', badge: '', badgeType: '' },
+    { id: 7, nama: 'Sundae Buah', harga: 28000, kategori: 'sundae', icon: '🍧', desc: 'Sundae dengan buah segar', badge: 'Favorit', badgeType: '' },
+    { id: 8, nama: 'Milkshake Cokelat', harga: 20000, kategori: 'minuman', icon: '🥤', desc: 'Milkshake cokelat dingin', badge: '', badgeType: '' },
+    { id: 9, nama: 'Milkshake Strawberry', harga: 20000, kategori: 'minuman', icon: '🥛', desc: 'Milkshake stroberi segar', badge: 'Baru', badgeType: '' },
+    { id: 10, nama: 'Es Teh Manis', harga: 8000, kategori: 'minuman', icon: '🧊', desc: 'Es teh manis segar', badge: '', badgeType: '' },
+    { id: 11, nama: 'Es Jeruk', harga: 10000, kategori: 'minuman', icon: '🍊', desc: 'Es jeruk peras asli', badge: '', badgeType: '' },
+    { id: 12, nama: 'Float Ice Cream', harga: 22000, kategori: 'minuman', icon: '🍹', desc: 'Minuman soda dengan es krim', badge: 'Best Seller', badgeType: 'hot' }
+  ];
+
+  /* =====================================================
+     2. STATE (Variabel Global)
+     ===================================================== */
+  let cart = [];               // Array keranjang belanja
+  let currentFilter = 'all';   // Filter kategori aktif
+  let searchKeyword = '';      // Kata kunci pencarian
+
+  /* =====================================================
+     3. FUNGSI RENDER PRODUK
+     ===================================================== */
+  function renderProduk() {
+    const $grid = $('#produkGrid');
+    $grid.empty();
+
+    // Filter data berdasarkan kategori & pencarian
+    const filtered = produkData.filter(function(p) {
+      const matchKategori = currentFilter === 'all' || p.kategori === currentFilter;
+      const matchSearch = p.nama.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+                          p.desc.toLowerCase().includes(searchKeyword.toLowerCase());
+      return matchKategori && matchSearch;
     });
 
-    localStorage.setItem(
-        "riwayat",
-        JSON.stringify(riwayat)
-    );
-}
-
-// =====================================================
-// EFEK VISUAL JQUERY
-// =====================================================
-
-// Hover card
-$(".skill-card, .product-card").hover(
-
-    function () {
-        $(this).css("transform", "translateY(-5px)");
-    },
-
-    function () {
-        $(this).css("transform", "translateY(0)");
+    // Jika tidak ada hasil
+    if (filtered.length === 0) {
+      $grid.html(`
+        <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: #bbb;">
+          <i class="fas fa-search" style="font-size: 3.5rem; color: #ffe4ec; margin-bottom: 20px; display: block;"></i>
+          <h3 style="color: #999; font-weight: 600; margin-bottom: 8px;">Produk tidak ditemukan</h3>
+          <p style="font-size: 0.9rem;">Coba kata kunci atau kategori lain</p>
+        </div>
+      `);
+      return;
     }
 
-);
+    // Render setiap produk
+    filtered.forEach(function(p) {
+      const badgeHtml = p.badge
+        ? `<div class="produk-badge ${p.badgeType}">${p.badge}</div>`
+        : '';
 
-// Fungsi notifikasi
-function showSuccess(message) {
+      const card = `
+        <div class="produk-card" data-id="${p.id}" data-kategori="${p.kategori}">
+          ${badgeHtml}
+          <div class="produk-img">${p.icon}</div>
+          <div class="produk-info">
+            <h3>${p.nama}</h3>
+            <p class="desc">${p.desc}</p>
+            <div class="produk-footer">
+              <div class="produk-price">
+                Rp ${p.harga.toLocaleString('id-ID')}
+                <small>per porsi</small>
+              </div>
+              <button class="btn-add-cart" data-id="${p.id}" title="Tambah ke keranjang">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      $grid.append(card);
+    });
+  }
 
-    $("#successMessage")
-        .text(message)
-        .stop(true, true)
-        .fadeIn(300)
-        .delay(2200)
-        .fadeOut(400);
-}
+  /* =====================================================
+     4. EVENT: FILTER KATEGORI (Navbar)
+     ===================================================== */
+  $('.nav-link').click(function() {
+    $('.nav-link').removeClass('active');
+    $(this).addClass('active');
+    currentFilter = $(this).data('filter');
 
-// Inisialisasi
-updateCartUI();
+    // Sync dengan tombol filter
+    $('.filter-btn').removeClass('active');
+    $(`.filter-btn[data-cat="${currentFilter}"]`).addClass('active');
+
+    renderProduk();
+  });
+
+  /* =====================================================
+     5. EVENT: FILTER KATEGORI (Tombol)
+     ===================================================== */
+  $('.filter-btn').click(function() {
+    $('.filter-btn').removeClass('active');
+    $(this).addClass('active');
+    currentFilter = $(this).data('cat');
+
+    // Sync dengan menu navbar
+    $('.nav-link').removeClass('active');
+    $(`.nav-link[data-filter="${currentFilter}"]`).addClass('active');
+
+    renderProduk();
+  });
+
+  /* =====================================================
+     6. EVENT: PENCARIAN REAL-TIME
+     ===================================================== */
+  $('#searchProduk').on('input', function() {
+    searchKeyword = $(this).val();
+    renderProduk();
+  });
+
+  /* =====================================================
+     7. EVENT: TAMBAH KE KERANJANG
+     ===================================================== */
+  $(document).on('click', '.btn-add-cart', function(e) {
+    e.stopPropagation();
+    const id = $(this).data('id');
+    const produk = produkData.find(p => p.id === id);
+    if (!produk) return;
+
+    // Cek apakah produk sudah ada di keranjang
+    const existing = cart.find(item => item.id === id);
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      cart.push({
+        id: produk.id,
+        nama: produk.nama,
+        harga: produk.harga,
+        icon: produk.icon,
+        qty: 1
+      });
+    }
+
+    updateCartUI();
+    showToast(`${produk.icon} ${produk.nama} ditambahkan!`);
+
+    // Animasi tombol
+    $(this).css('transform', 'rotate(90deg) scale(1.3)');
+    setTimeout(() => $(this).css('transform', ''), 300);
+
+    // Animasi badge
+    $('#cartBadge').css('transform', 'scale(1.4)');
+    setTimeout(() => $('#cartBadge').css('transform', 'scale(1)'), 200);
+  });
+
+  /* =====================================================
+     8. FUNGSI UPDATE UI KERANJANG
+        (+ LATIHAN 1: Diskon 10% jika total > Rp 100.000)
+     ===================================================== */
+  function updateCartUI() {
+    const $cartItems = $('#cartItems');
+    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+    let totalHarga = cart.reduce((sum, item) => sum + (item.harga * item.qty), 0);
+
+    // Update badge keranjang
+    $('#cartBadge').text(totalQty);
+
+    // Update total harga
+    $('#cartTotal').text('Rp ' + totalHarga.toLocaleString('id-ID'));
+
+    // ----- LATIHAN 1: Diskon 10% -----
+    if (totalHarga > 100000) {
+      const diskon = totalHarga * 0.1;
+      totalHarga -= diskon;
+      $('#cartTotal').html(`
+        <small style="text-decoration:line-through;color:#999;">Rp ${(totalHarga + diskon).toLocaleString('id-ID')}</small>
+        Rp ${totalHarga.toLocaleString('id-ID')}
+      `);
+    }
+
+    // Jika kosong
+    if (cart.length === 0) {
+      $cartItems.html(`
+        <div class="cart-empty">
+          <i class="fas fa-shopping-cart"></i>
+          <p>Keranjang masih kosong</p>
+          <small>Yuk pilih es krim dulu!</small>
+        </div>
+      `);
+      return;
+    }
+
+    // Render item keranjang
+    let html = '';
+    cart.forEach(function(item) {
+      html += `
+        <div class="cart-item" data-id="${item.id}">
+          <div class="cart-item-icon">${item.icon}</div>
+          <div class="cart-item-info">
+            <h5>${item.nama}</h5>
+            <div class="price">Rp ${(item.harga * item.qty).toLocaleString('id-ID')}</div>
+            <div class="qty-control">
+              <button class="qty-btn" data-action="minus" data-id="${item.id}">−</button>
+              <span class="qty-value">${item.qty}</span>
+              <button class="qty-btn" data-action="plus" data-id="${item.id}">+</button>
+            </div>
+          </div>
+          <button class="cart-item-remove" data-id="${item.id}" title="Hapus">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      `;
+    });
+    $cartItems.html(html);
+  }
+
+  /* =====================================================
+     9. EVENT: KONTROL QTY (Plus/Minus)
+     ===================================================== */
+  $(document).on('click', '.qty-btn', function() {
+    const action = $(this).data('action');
+    const id = $(this).data('id');
+    const item = cart.find(i => i.id === id);
+    if (!item) return;
+
+    if (action === 'plus') {
+      item.qty += 1;
+    } else if (action === 'minus') {
+      item.qty -= 1;
+      if (item.qty <= 0) {
+        cart = cart.filter(i => i.id !== id);
+      }
+    }
+    updateCartUI();
+  });
+
+  /* =====================================================
+     10. EVENT: HAPUS ITEM DARI KERANJANG
+     ===================================================== */
+  $(document).on('click', '.cart-item-remove', function() {
+    const id = $(this).data('id');
+    const item = cart.find(i => i.id === id);
+    if (item) {
+      showToast(`${item.icon} ${item.nama} dihapus dari keranjang`);
+    }
+    cart = cart.filter(i => i.id !== id);
+    updateCartUI();
+  });
+
+  /* =====================================================
+     11. EVENT: BUKA/TUTUP KERANJANG
+     ===================================================== */
+  $('#cartBtn').click(function() {
+    $('#cartSidebar').addClass('open');
+    $('#cartOverlay').fadeIn(300);
+  });
+
+  $('#cartClose, #cartOverlay').click(function() {
+    $('#cartSidebar').removeClass('open');
+    $('#cartOverlay').fadeOut(300);
+  });
+
+  /* =====================================================
+     LATIHAN 2: SIMPAN RIWAYAT KE localStorage
+     ===================================================== */
+  function simpanRiwayat(total, qty) {
+    const riwayat = JSON.parse(localStorage.getItem('riwayat')) || [];
+    riwayat.push({ tanggal: new Date().toISOString(), total, qty });
+    localStorage.setItem('riwayat', JSON.stringify(riwayat));
+  }
+
+  /* =====================================================
+     12. EVENT: CHECKOUT
+         (+ LATIHAN 3: Modal Form Data Pembeli dengan Validasi)
+     ===================================================== */
+  function tutupModal() {
+    $('#modalOverlay').fadeOut(250);
+  }
+
+  // Klik "Checkout Sekarang" -> buka modal form dulu
+  $('#btnCheckout').click(function() {
+    if (cart.length === 0) {
+      showToast('❌ Keranjang masih kosong!');
+      return;
+    }
+    $('#formPembeli')[0].reset();
+    $('.err').hide();
+    $('.form-group').removeClass('invalid');
+    $('#modalOverlay').css('display', 'flex').hide().fadeIn(250);
+  });
+
+  $('#modalClose').click(tutupModal);
+  $('#modalOverlay').click(function(e) {
+    if (e.target === this) tutupModal();
+  });
+
+  // Fungsi validasi per field
+  function cek($input, $err, valid) {
+    $err.toggle(!valid);
+    $input.closest('.form-group').toggleClass('invalid', !valid);
+    return valid;
+  }
+  function validNama()   { return cek($('#nama'),   $('#errNama'),   $('#nama').val().trim().length >= 3); }
+  function validAlamat() { return cek($('#alamat'), $('#errAlamat'), $('#alamat').val().trim().length >= 10); }
+  function validHp()     { return cek($('#hp'),     $('#errHp'),     /^08\d{8,11}$/.test($('#hp').val().trim())); }
+
+  // Validasi real-time
+  $('#nama').on('input', validNama);
+  $('#alamat').on('input', validAlamat);
+  $('#hp').on('input', validHp);
+
+  // Submit form -> validasi -> proses checkout
+  $('#formPembeli').submit(function(e) {
+    e.preventDefault();
+    const semuaValid = [validNama(), validAlamat(), validHp()].every(Boolean);
+    if (!semuaValid) return;
+
+    let total = cart.reduce((sum, item) => sum + (item.harga * item.qty), 0);
+    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+    if (total > 100000) total -= total * 0.1;   // diskon Latihan 1 ikut dihitung
+
+    // Animasi loading
+    const $btn = $('#btnKonfirmasi');
+    $btn.html('<i class="fas fa-spinner fa-spin"></i> Memproses...').prop('disabled', true);
+
+    setTimeout(function() {
+      $btn.html('<i class="fas fa-check-circle"></i> Konfirmasi Pesanan').prop('disabled', false);
+
+      simpanRiwayat(total, totalQty);   // Latihan 2
+
+      // Reset keranjang
+      cart = [];
+      updateCartUI();
+
+      // Tutup modal & sidebar
+      tutupModal();
+      $('#cartSidebar').removeClass('open');
+      $('#cartOverlay').fadeOut(300);
+
+      showToast(`✅ Checkout berhasil! ${totalQty} item · Rp ${total.toLocaleString('id-ID')}`);
+    }, 1500);
+  });
+
+  /* =====================================================
+     13. FUNGSI TOAST NOTIFICATION
+     ===================================================== */
+  let toastTimer;
+  function showToast(message) {
+    clearTimeout(toastTimer);
+    $('#toastMsg').text(message);
+    $('#toast').addClass('show');
+    toastTimer = setTimeout(function() {
+      $('#toast').removeClass('show');
+    }, 2500);
+  }
+
+  /* =====================================================
+     14. EVENT: HAMBURGER MENU (Mobile)
+     ===================================================== */
+  $('#hamburger').click(function() {
+    $('#navMenu').toggleClass('show');
+    const icon = $(this).find('i');
+    if ($('#navMenu').hasClass('show')) {
+      icon.removeClass('fa-bars').addClass('fa-times');
+    } else {
+      icon.removeClass('fa-times').addClass('fa-bars');
+    }
+  });
+
+  // Tutup menu saat link diklik (mobile)
+  $('.nav-link').click(function() {
+    if (window.innerWidth <= 768) {
+      $('#navMenu').removeClass('show');
+      $('#hamburger').find('i').removeClass('fa-times').addClass('fa-bars');
+    }
+  });
+
+  /* =====================================================
+     15. INISIALISASI APLIKASI
+     ===================================================== */
+  renderProduk();
+  updateCartUI();
+
+  // Log ke console
+  console.log('%c🍦 Warung Ice Cream - Siap!', 'color:#ff6b9d;font-size:16px;font-weight:bold;');
+  console.log('%cTotal produk: ' + produkData.length, 'color:#2d1b3d;font-size:12px;');
+});
