@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
 const products = [
+    
     {id:1,name:"Mochi Bear Keychain",category:"accessories",price:35000,icon:"🧸"},
     {id:2,name:"Mini Crochet Bag",category:"accessories",price:85000,icon:"👜"},
     {id:3,name:"Floral Beaded Bracelet",category:"accessories",price:45000,icon:"📿"},
