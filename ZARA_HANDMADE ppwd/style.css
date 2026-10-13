@@ -363,3 +363,9 @@ small{font-weight:400;color:#b24d42}
     center}
 @media(max-width:900px){.product-grid{grid-template-columns:repeat(2,1fr)}.hero{padding:65px 8%}.hero h1{font-size:42px}.profile-card{grid-template-columns:1fr;text-align:center}.profile-photo{width:220px;height:220px;margin:auto}.skills{justify-content:center}.contact-section{grid-template-columns:1fr}.mini-about{grid-template-columns:1fr}}
 @media(max-width:650px){.navbar{height:68px}.menu-btn{display:block}.navbar nav{display:none;position:absolute;top:68px;left:0;right:0;padding:18px 7%;background:#fffaf5;flex-direction:column;align-items:flex-start;border-bottom:1px solid #ead9ca}.navbar nav.open{display:flex}.hero{min-height:auto;flex-direction:column;text-align:center;padding:55px 7%}.hero h1{font-size:37px}.hero-card{width:230px;height:230px}.section{padding:60px 7%}.section-heading{display:block}.section-heading input{margin-top:15px;width:100%}.product-grid{grid-template-columns:1fr 1fr;gap:12px}.product-img{height:145px}.mini-about{margin:0 5% 55px;padding:35px 25px}.quote-card{display:none}footer{display:block;text-align:center}.cart-sidebar{width:360px}.profile-hero h1{font-size:35px}.profile-card,.contact-section{max-width:92%;padding:25px}.outline-btn{margin-left:0;margin-top:8px}}
+
+
+/* Menghilangkan bulatan, ikon hati, dan tulisannya */
+.hero-card {
+    display: none;
+}
