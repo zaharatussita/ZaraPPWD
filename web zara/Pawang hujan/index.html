@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CerahTerus – Jasa Pawang Hujan Pernikahan</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+</head>
+<body>
+    <div id="flash"></div>
+    <div id="payung">☂️</div>
+
+    <nav>
+        <div class="container nav-wrap">
+            <a href="#beranda" class="logo">☀️ CerahTerus</a>
+            <button id="burger" type="button" aria-label="Menu">☰</button>
+            <ul class="nav-list">
+                <li><a href="#beranda">Beranda</a></li>
+                <li class="dropdown">
+                    <button class="dropdown-btn" type="button">Paket ▼</button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#paket" data-tab="#tab-cerah">Paket Cerah</a></li>
+                        <li><a href="#paket" data-tab="#tab-mendung">Paket Mendung</a></li>
+                        <li><a href="#paket" data-tab="#tab-badai">Paket Badai</a></li>
+                    </ul>
+                </li>
+                <li><a href="#kuis">Cek Peluang</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#booking" class="nav-cta">Booking</a></li>
+                <li><button id="themeBtn" type="button" title="Ganti mode">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header id="beranda" class="hero">
+        <div id="hujan"></div>
+        <div id="pelangi">🌈</div>
+        <div class="container hero-isi">
+            <span class="badge">Bersertifikat Kementerian Langit (katanya)</span>
+            <h1>Hujan Datang?<br>Kami Suruh Pulang.</h1>
+            <p>Jasa pawang hujan profesional untuk pernikahan, khitanan, dan acara yang jemurannya masih di luar.</p>
+            <button id="usirBtn" type="button" class="btn btn-aksen">⛈️ Usir Hujan Sekarang</button>
+            <div class="bayar-wrap">
+                <button id="bayarNanti" type="button" class="btn-kabur">Bayar Nanti</button>
+                <small>Pawang kami tidak menerima utang.</small>
+            </div>
+        </div>
+    </header>
+
+    <section class="stats">
+        <div class="container stat-grid">
+            <div><strong class="count" data-to="1287">0</strong><span>Hujan Berhasil Diusir</span></div>
+            <div><strong class="count" data-to="100">0</strong><span>% Mempelai Kering</span></div>
+            <div><strong class="count" data-to="0">0</strong><span>Mantan Hadir (Semoga)</span></div>
+        </div>
+    </section>
+
+    <section id="paket" class="container">
+        <h2>Pilih Paketmu</h2>
+        <div class="tabs">
+            <button class="tab active" type="button" data-target="#tab-cerah">☀️ Paket Cerah</button>
+            <button class="tab" type="button" data-target="#tab-mendung">☁️ Paket Mendung</button>
+            <button class="tab" type="button" data-target="#tab-badai">⛈️ Paket Badai</button>
+        </div>
+        <div id="tab-cerah" class="tab-panel grid cerah">
+            <div class="card"><h3>Cerah Ceria</h3><p>Langit biru terjamin untuk acara intim sampai 100 tamu.</p><div class="price">Rp 500.000</div></div>
+            <div class="card"><h3>Bonus Doa</h3><p>Gratis doa sebelum akad dan sesudah prasmanan.</p><div class="price">Gratis</div></div>
+            <div class="card"><h3>Jemuran Aman</h3><p>Kami jaga jemuran tetangga juga. Solidaritas.</p><div class="price">+ Rp 0</div></div>
+        </div>
+        <div id="tab-mendung" class="tab-panel grid mendung">
+            <div class="card"><h3>Mendung Manja</h3><p>Awan menepi pelan-pelan, tidak ada drama dan tidak ada gerimis.</p><div class="price">Rp 1.000.000</div></div>
+            <div class="card"><h3>Negosiasi Awan</h3><p>Kami ajak awan ngobrol sampai mau pindah ke kelurahan sebelah.</p><div class="price">Termasuk</div></div>
+            <div class="card"><h3>Standby 6 Jam</h3><p>Pawang siaga dari rias pengantin sampai bubar.</p><div class="price">Termasuk</div></div>
+        </div>
+        <div id="tab-badai" class="tab-panel grid badai">
+            <div class="card"><h3>Badai? Hadapi Saja</h3><p>Untuk acara outdoor besar. Petir pun kami tegur.</p><div class="price">Rp 2.500.000</div></div>
+            <div class="card"><h3>Tim 3 Pawang</h3><p>Satu komat-kamit, satu jaga angin, satu jaga mental keluarga.</p><div class="price">Termasuk</div></div>
+            <div class="card"><h3>Garansi Basah</h3><p>Kalau tetap hujan, kami traktir bakso se-RT.</p><div class="price">Termasuk</div></div>
+        </div>
+        <div class="mantra">
+            <button id="mantraBtn" type="button" class="btn btn-garis">🔮 Minta Mantra Gratis</button>
+            <p id="mantraTeks"></p>
+        </div>
+    </section>
+
+    <section id="kuis" class="alt">
+        <div class="container narrow">
+            <h2>Seberapa Besar Peluang Hujan di Hari-H?</h2>
+            <div class="kotak" id="kuisBox">
+                <div class="soal"><p>1. Mantan diundang?</p>
+                    <div class="opsi"><button type="button" data-skor="0">Tidak</button><button type="button" data-skor="2">Ya, demi gengsi</button></div></div>
+                <div class="soal"><p>2. Jemuran di rumah masih di luar?</p>
+                    <div class="opsi"><button type="button" data-skor="0">Sudah diangkat</button><button type="button" data-skor="1">Mungkin</button><button type="button" data-skor="2">Ya</button></div></div>
+                <div class="soal"><p>3. Acaranya di mana?</p>
+                    <div class="opsi"><button type="button" data-skor="0">Gedung</button><button type="button" data-skor="1">Halaman rumah</button><button type="button" data-skor="2">Lapangan terbuka</button></div></div>
+                <div id="hasilKuis" class="hasil"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq">
+        <div class="container narrow">
+            <h2>Pertanyaan Absurd tapi Sering Ditanyakan</h2>
+            <div class="faq-item"><button class="faq-q" type="button">Apakah hujan bisa dinegosiasikan? <span>+</span></button><div class="faq-a">Bisa. Syaratnya tidak ada tawar-menawar harga paket.</div></div>
+            <div class="faq-item"><button class="faq-q" type="button">Kalau tetap hujan, bagaimana? <span>+</span></button><div class="faq-a">Itu berarti hujannya sedang punya acara sendiri. Kami ganti dengan bakso se-RT.</div></div>
+            <div class="faq-item"><button class="faq-q" type="button">Apakah pawang kalian bisa mengusir mertua rewel? <span>+</span></button><div class="faq-a">Di luar cakupan layanan. Silakan hubungi jasa lain.</div></div>
+        </div>
+    </section>
+
+    <section id="booking" class="alt">
+        <div class="container">
+            <h2>Booking Pawang</h2>
+            <form id="formBooking" class="form-box">
+                <div class="row">
+                    <div class="form-group"><label for="nama">Nama Pemesan</label><input type="text" id="nama" name="nama" placeholder="Nama lengkap"></div>
+                    <div class="form-group"><label for="email">Email</label><input type="text" id="email" name="email" placeholder="nama@email.com"></div>
+                </div>
+                <div class="row">
+                    <div class="form-group"><label for="hp">Nomor WhatsApp</label><input type="text" id="hp" name="hp" placeholder="081234567890"></div>
+                    <div class="form-group"><label for="tanggal">Tanggal Acara</label><input type="date" id="tanggal" name="tanggal"></div>
+                </div>
+                <div class="row">
+                    <div class="form-group"><label for="paket">Paket</label>
+                        <select id="paket" name="paket">
+                            <option value="">-- Pilih Paket --</option>
+                            <option value="500000">Cerah Ceria</option>
+                            <option value="1000000">Mendung Manja</option>
+                            <option value="2500000">Badai? Hadapi Saja</option>
+                        </select></div>
+                    <div class="form-group"><label for="tamu">Jumlah Tamu</label><input type="text" id="tamu" name="tamu" placeholder="10 - 1000"></div>
+                </div>
+                <div class="form-group"><label for="lokasi">Lokasi Acara</label><textarea id="lokasi" name="lokasi" rows="3" placeholder="Alamat lengkap tempat acara"></textarea></div>
+                <div class="total">Estimasi biaya: <strong id="total">Rp 0</strong></div>
+                <div class="form-group check"><label><input type="checkbox" name="setuju" id="setuju"> Saya paham bahwa hujan punya hak asasi sendiri</label></div>
+                <button type="submit" class="btn">Kirim Booking</button>
+                <div class="sukses" id="sukses"><strong>Kontrak disetujui!</strong> Pawang kami sudah komat-kamit dari sekarang. 🌤️</div>
+                <small class="disclaimer">Kami tidak bertanggung jawab atas hujan di acara tetangga, mantan yang datang, atau mertua yang rewel.</small>
+            </form>
+        </div>
+    </section>
+
+    <footer><p>&copy; 2026 CerahTerus · Semua hujan yang terjadi adalah kebetulan semata · Tugas Mandiri PWD Minggu 10 &amp; 11</p></footer>
+    <div id="toast"></div>
+    <button id="backToTop" type="button" aria-label="Kembali ke atas">&#8593;</button>
+    <script src="script.js"></script>
+</body>
+</html>

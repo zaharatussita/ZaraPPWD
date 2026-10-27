@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>After the Last Song - Musik Sesuai Suasana Hati</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- CDN jQuery & jQuery Validation Plugin -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+</head>
+<body class="mood-healing">
+
+<nav>
+  <div class="container">
+    <a href="#beranda" class="logo">🎧 After the Last Song</a>
+    <ul class="nav-list">
+      <li><a href="#beranda">Beranda</a></li>
+      <li><a href="#mood">Mood</a></li>
+      <li class="dropdown">
+        <a href="#favorit">Koleksi ▾</a>
+        <ul class="dropdown-menu">
+          <li><a href="#favorit">Lagu Favorit (<span id="jmlFav">0</span>)</a></li>
+          <li><a href="#mood">Jelajah Mood</a></li>
+        </ul>
+      </li>
+      <li><a href="#profil" class="btn-nav">Buat Profil</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header id="beranda" class="hero">
+  <div class="container">
+    <h1>Setelah lagu terakhir selesai,<br>apa yang kamu rasakan?</h1>
+    <p>Temukan musik yang pas dengan suasana hatimu malam ini.</p>
+    <a href="#mood" class="btn">Mulai Jelajah</a>
+  </div>
+</header>
+
+<section id="mood" class="section">
+  <div class="container">
+    <h2>Pilih Suasana Hati</h2>
+    <div class="tabs">
+      <button class="tab active" type="button" data-mood="healing">🌿 Healing</button>
+      <button class="tab" type="button" data-mood="heartbreak">💔 Heartbreak</button>
+      <button class="tab" type="button" data-mood="happy">☀️ Happy</button>
+      <button class="tab" type="button" data-mood="latenight">🌙 Late Night</button>
+    </div>
+    <p id="moodDesc" class="center"></p>
+    <div id="panel" class="grid"></div>
+  </div>
+</section>
+
+<section id="favorit" class="section alt">
+  <div class="container">
+    <h2>Lagu Favoritmu</h2>
+    <button class="acc-head" type="button" id="toggleFav">Tampilkan / sembunyikan daftar <span>+</span></button>
+    <ul id="listFav" class="fav-list"></ul>
+  </div>
+</section>
+
+<section id="profil" class="section">
+  <div class="container narrow">
+    <h2>Buat Profil Musik</h2>
+    <p class="center">Pilih genre favoritmu agar rekomendasi makin pas.</p>
+    <form id="formProfil" novalidate>
+      <div class="row">
+        <div class="group"><label for="nama">Nama Lengkap</label><input type="text" id="nama" name="nama" placeholder="Nama lengkap"></div>
+        <div class="group"><label for="username">Username</label><input type="text" id="username" name="username" placeholder="mis. night_listener"></div>
+      </div>
+      <div class="row">
+        <div class="group"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="nama@email.com"></div>
+        <div class="group"><label for="umur">Usia</label><input type="number" id="umur" name="umur" placeholder="Usia (tahun)"></div>
+      </div>
+      <div class="row">
+        <div class="group"><label for="moodFav">Mood Favorit</label>
+          <select id="moodFav" name="moodFav">
+            <option value="">-- Pilih Mood --</option>
+            <option value="Healing">Healing</option><option value="Heartbreak">Heartbreak</option>
+            <option value="Happy">Happy</option><option value="Late Night">Late Night</option>
+          </select>
+        </div>
+        <div class="group"><label>Waktu Mendengarkan</label>
+          <div class="radio-row">
+            <label><input type="radio" name="waktu" value="Pagi"> Pagi</label>
+            <label><input type="radio" name="waktu" value="Siang"> Siang</label>
+            <label><input type="radio" name="waktu" value="Malam"> Malam</label>
+          </div>
+        </div>
+      </div>
+      <div class="group">
+        <label>Genre Favorit (pilih minimal 2)</label>
+        <div class="genre-grid">
+          <label><input type="checkbox" name="genre" value="Pop"> Pop</label>
+          <label><input type="checkbox" name="genre" value="Indie"> Indie</label>
+          <label><input type="checkbox" name="genre" value="R&amp;B"> R&amp;B</label>
+          <label><input type="checkbox" name="genre" value="Lo-fi"> Lo-fi</label>
+          <label><input type="checkbox" name="genre" value="Rock"> Rock</label>
+          <label><input type="checkbox" name="genre" value="Jazz"> Jazz</label>
+          <label><input type="checkbox" name="genre" value="Folk"> Folk</label>
+          <label><input type="checkbox" name="genre" value="Elektronik"> Elektronik</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="group"><label for="password">Password</label><input type="password" id="password" name="password" placeholder="Minimal 8 karakter"></div>
+        <div class="group"><label for="konfirmasi">Konfirmasi Password</label><input type="password" id="konfirmasi" name="konfirmasi" placeholder="Ulangi password"></div>
+      </div>
+      <div class="group check"><label><input type="checkbox" id="setuju" name="setuju"> Saya menyetujui syarat &amp; ketentuan</label></div>
+      <button type="submit" class="btn full">Buat Profil</button>
+    </form>
+    <div id="hasil" class="hasil"></div>
+  </div>
+</section>
+
+<footer><div class="container">&copy; 2026 After the Last Song</div></footer>
+<button id="backToTop" type="button" title="Kembali ke atas">↑</button>
+
+<script src="script.js"></script>
+</body>
+</html>
