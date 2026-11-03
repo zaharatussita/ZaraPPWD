@@ -1,80 +1,629 @@
 
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portofolio Yan</title>
 
-    <!-- Menghubungkan file CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #f5eee5;
+            --card: #fffaf4;
+            --text: #342219;
+            --muted: #897568;
+            --accent: #9b6547;
+            --border: rgba(107, 70, 47, 0.14);
+            --shadow: 0 12px 35px rgba(69, 42, 25, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(ellipse at 10% 0%, #ddc2a7, transparent 35%),
+                radial-gradient(ellipse at 100% 45%, #e8d6c4, transparent 30%),
+                linear-gradient(135deg, #f7f0e7, #e9d8c6 55%, #f5eee5);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* HEADER */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(247, 240, 231, 0.82);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            color: var(--accent);
+        }
+
+        .logo span {
+            color: var(--text);
+        }
+
+        #tombol-tema {
+            padding: 11px 20px;
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            background: var(--text);
+            color: #fff8ef;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        #tombol-tema:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* KONTEN */
+        .isi {
+            width: min(1100px, 84%);
+            margin: auto;
+            padding: 70px 0 90px;
+        }
+
+        /* HERO */
+        .perkenalan {
+            position: relative;
+            overflow: hidden;
+            padding: 70px 55px;
+            margin-bottom: 65px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 28px;
+            background: linear-gradient(
+                120deg,
+                rgba(255, 250, 244, 0.95),
+                rgba(224, 198, 173, 0.88)
+            );
+            box-shadow: var(--shadow);
+            animation: muncul 0.8s ease;
+        }
+
+        .label-atas {
+            display: inline-block;
+            margin-bottom: 22px;
+            padding: 8px 14px;
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            color: var(--accent);
+            background: rgba(255, 250, 244, 0.6);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .perkenalan h1 {
+            position: relative;
+            z-index: 1;
+            max-width: 650px;
+            margin-bottom: 18px;
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(38px, 6vw, 66px);
+            line-height: 1.1;
+            letter-spacing: -2px;
+        }
+
+        .perkenalan h1 span {
+            color: var(--accent);
+        }
+
+        .perkenalan p {
+            position: relative;
+            z-index: 1;
+            max-width: 470px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .dekorasi {
+            position: absolute;
+            right: 30px;
+            bottom: -65px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 260px;
+            font-weight: 800;
+            line-height: 1;
+            color: rgba(121, 77, 48, 0.08);
+            pointer-events: none;
+        }
+
+        /* JUDUL */
+        .judul-proyek {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .judul-proyek h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            letter-spacing: -1px;
+        }
+
+        .jumlah {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* PENCARIAN */
+        .pencarian {
+            position: relative;
+            margin-bottom: 28px;
+        }
+
+        .ikon-cari {
+            position: absolute;
+            top: 50%;
+            left: 18px;
+            transform: translateY(-50%);
+            font-size: 19px;
+            color: var(--muted);
+        }
+
+        #cari {
+            display: block;
+            width: 100%;
+            padding: 17px 20px 17px 50px;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            outline: none;
+            background: rgba(255, 250, 244, 0.88);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            transition: 0.25s;
+        }
+
+        #cari::placeholder {
+            color: var(--muted);
+        }
+
+        #cari:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(155, 101, 71, 0.12);
+        }
+
+        /* KARTU PROYEK */
+        .daftar-proyek {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .kartu {
+            position: relative;
+            display: flex;
+            min-height: 205px;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            padding: 26px 24px;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            background: var(--card);
+            color: var(--text);
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(69, 42, 25, 0.035);
+            transition: transform 0.3s, box-shadow 0.3s,
+                        border-color 0.3s;
+            animation: muncul 0.6s ease both;
+        }
+
+        .kartu::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #75452d, #c69b77);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+
+        .kartu:hover {
+            transform: translateY(-7px);
+            border-color: rgba(155, 101, 71, 0.4);
+            box-shadow: 0 18px 35px rgba(69, 42, 25, 0.12);
+        }
+
+        .kartu:hover::before {
+            transform: scaleX(1);
+        }
+
+        .nomor {
+            margin-bottom: 25px;
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .kartu h3 {
+            max-width: 85%;
+            margin-bottom: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 21px;
+            line-height: 1.35;
+        }
+
+        .kartu p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .panah {
+            position: absolute;
+            top: 23px;
+            right: 22px;
+            color: var(--accent);
+            font-size: 21px;
+            transition: transform 0.3s;
+        }
+
+        .kartu:hover .panah {
+            transform: translate(4px, -4px);
+        }
+
+        /* PESAN PENCARIAN */
+        .pesan-kosong {
+            display: none;
+            padding: 45px 15px;
+            color: var(--muted);
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        /* FOOTER */
+        .footer {
+            margin-top: 65px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .footer strong {
+            color: var(--accent);
+        }
+
+        /* MODE GELAP */
+        body.mode-gelap {
+            --text: #f4e8dc;
+            --muted: #bba795;
+            --accent: #d6a27d;
+            --card: #302219;
+            --border: rgba(239, 215, 195, 0.12);
+            --shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+
+            background:
+                radial-gradient(ellipse at 10% 0%, #4c3325, transparent 35%),
+                radial-gradient(ellipse at 100% 45%, #3a291f, transparent 30%),
+                linear-gradient(135deg, #211812, #302219 55%, #211812);
+        }
+
+        body.mode-gelap .header {
+            background: rgba(33, 24, 18, 0.85);
+        }
+
+        body.mode-gelap .perkenalan {
+            background: linear-gradient(120deg, #39281e, #4a3426);
+            border-color: var(--border);
+        }
+
+        body.mode-gelap .label-atas {
+            background: rgba(33, 24, 18, 0.45);
+        }
+
+        body.mode-gelap #cari {
+            background: #302219;
+            color: var(--text);
+        }
+
+        body.mode-gelap #tombol-tema {
+            background: #ead6c3;
+            color: #302219;
+        }
+
+        /* ANIMASI */
+        @keyframes muncul {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .isi {
+                width: 88%;
+            }
+
+            .daftar-proyek {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .perkenalan {
+                padding: 55px 35px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .header {
+                padding: 17px 6%;
+            }
+
+            .logo {
+                font-size: 26px;
+            }
+
+            #tombol-tema {
+                padding: 10px 14px;
+            }
+
+            .isi {
+                width: 90%;
+                padding-top: 40px;
+            }
+
+            .perkenalan {
+                padding: 42px 24px;
+                margin-bottom: 45px;
+                border-radius: 22px;
+            }
+
+            .perkenalan h1 {
+                font-size: 42px;
+                letter-spacing: -1.5px;
+            }
+
+            .perkenalan p {
+                font-size: 14px;
+            }
+
+            .dekorasi {
+                right: 0;
+                font-size: 150px;
+            }
+
+            .judul-proyek h2 {
+                font-size: 27px;
+            }
+
+            .daftar-proyek {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .kartu {
+                min-height: 175px;
+                padding: 24px;
+            }
+
+            .footer {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <!-- Bagian atas -->
+
+    <!-- HEADER -->
     <header class="header">
-        <h2 class="logo">Yan</h2>
-        <button id="tombol-tema">Mode gelap</button>
+        <h2 class="logo">Yan<span>.</span></h2>
+        <button id="tombol-tema" type="button">
+            ☾ Mode gelap
+        </button>
     </header>
 
     <main class="isi">
-        <!-- Perkenalan -->
+
+        <!-- PERKENALAN -->
         <section class="perkenalan">
-            <h1>Halo, saya Yan.</h1>
-            <p>Mahasiswa Sistem Informasi yang suka membuat aplikasi web.</p>
+            <span class="label-atas">✦ Personal Portfolio</span>
+
+            <h1>
+                Halo, saya <span>Yan.</span><br>
+                Selamat datang!
+            </h1>
+
+            <p>
+                Mahasiswa Sistem Informasi yang suka membuat aplikasi web,
+                mengeksplorasi ide kreatif, dan membangun pengalaman digital
+                yang menarik.
+            </p>
+
+            <div class="dekorasi">Y.</div>
         </section>
 
-        <!-- Daftar proyek -->
-        <h2>Proyek saya</h2>
+        <!-- DAFTAR PROYEK -->
+        <section id="proyek">
+            <div class="judul-proyek">
+                <h2>Proyek Saya<span style="color:var(--accent)">.</span></h2>
+                <span class="jumlah" id="jumlah-proyek">07 Proyek</span>
+            </div>
 
-        <!-- Kotak pencarian -->
-        <input type="text" id="cari" placeholder="Cari proyek...">
+            <!-- PENCARIAN -->
+            <div class="pencarian">
+                <span class="ikon-cari">⌕</span>
+                <input
+                    type="text"
+                    id="cari"
+                    placeholder="Cari proyek yang kamu inginkan..."
+                    aria-label="Cari proyek"
+                >
+            </div>
 
-        <section class="daftar-proyek">
-            <!-- Proyek Buku Tamu Digital -->
-            <a class="kartu" href="buku-tamu-digital/index.html">
-                <h3>Buku Tamu Digital</h3>
-                <p>Formulir pencatatan tamu kantor.</p>
-            </a>
+            <!-- KARTU -->
+            <div class="daftar-proyek">
 
-            <!-- Proyek MAV Platform -->
-            <a class="kartu" href="mav-platform/index.html">
-                <h3>MAV Platform</h3>
-                <p>Menu berbeda untuk setiap peran pengguna.</p>
-            </a>
+                <a class="kartu" href="buku-tamu-digital/index.html">
+                    <div>
+                        <div class="nomor">PROJECT — 01</div>
+                        <h3>Buku Tamu Digital</h3>
+                        <p>Formulir digital untuk pencatatan tamu kantor.</p>
+                    </div>
+                    <span class="panah">↗</span>
+                </a>
 
-            <a class="kartu" href="web zara/kopinihbos/kopi-senja.html">
-                <h3>Kopi ni bosh</h3>
-                <p>Menu berbeda untuk setiap peran pengguna.</p>
-            </a>
+                <a class="kartu" href="mav-platform/index.html">
+                    <div>
+                        <div class="nomor">PROJECT — 02</div>
+                        <h3>MAV Platform</h3>
+                        <p>Platform dengan menu berbeda untuk setiap peran pengguna.</p>
+                    </div>
+                    <span class="panah">↗</span>
+                </a>
 
-            <a class="kartu" href="web zara/Pawang hujan/index.html">
-                <h3>Bisnis Pawang Hujan</h3>
-                <p>kenali bisnis pawang hujan zara.</p>
-            </a>
+                <a class="kartu" href="web zara/kopinihbos/kopi-senja.html">
+                    <div>
+                        <div class="nomor">PROJECT — 03</div>
+                        <h3>Kopi ni Bosh</h3>
+                        <p>Website bertema kopi dengan tampilan yang menarik.</p>
+                    </div>
+                    <span class="panah">↗</span>
+                </a>
 
-            <a class="kartu" href="web zara/pertemuan 11/kopi.html">
-                <h3>kopi html</h3>
-                <p>Menu berbeda untuk setiap peran pengguna.</p>
-            </a>
+                <a class="kartu" href="web zara/Pawang hujan/index.html">
+                    <div>
+                        <div class="nomor">PROJECT — 04</div>
+                        <h3>Bisnis Pawang Hujan</h3>
+                        <p>Mengenal konsep bisnis jasa pawang hujan.</p>
+                    </div>
+                    <span class="panah">↗</span>
+                </a>
 
-            <a class="kartu" href="web zara/websitemusikzara/index.html">
-                <h3>Musik zara</h3>
-                <p>Menu berbeda untuk setiap peran pengguna.</p>
-            </a>
+                <a class="kartu" href="web zara/pertemuan 11/kopi.html">
+                    <div>
+                        <div class="nomor">PROJECT — 05</div>
+                        <h3>Kopi HTML</h3>
+                        <p>Eksplorasi pembuatan halaman web bertema kopi.</p>
+                    </div>
+                    <span class="panah">↗</span>
+                </a>
 
-            <a class="kartu" href="web zara/ZARA_HANDMADE ppwd/index.html">
-                <h3>Zara Handmasde</h3>
-                <p>Menu berbeda untuk setiap peran pengguna.</p>
-            </a>
+                <a class="kartu" href="web zara/websitemusikzara/index.html">
+                    <div>
+                        <div class="nomor">PROJECT — 06</div>
+                        <h3>Musik Zara</h3>
+                        <p>Website bertema musik untuk menikmati dunia audio.</p>
+                    </div>
+                    <span class="panah">↗</span>
+                </a>
+
+                <a class="kartu" href="web zara/ZARA_HANDMADE ppwd/index.html">
+                    <div>
+                        <div class="nomor">PROJECT — 07</div>
+                        <h3>Zara Handmade</h3>
+                        <p>Website kreatif untuk produk handmade.</p>
+                    </div>
+                    <span class="panah">↗</span>
+                </a>
+
+            </div>
+
+            <p id="pesan-kosong" class="pesan-kosong">
+                <strong>Yah, proyeknya belum ditemukan.</strong><br>
+                Coba gunakan kata kunci yang lain, ya!
+            </p>
         </section>
 
-        <!-- Pesan jika proyek tidak ditemukan -->
-        <p id="pesan-kosong" class="pesan-kosong">
-            Proyek tidak ditemukan.
-        </p>
+        <!-- FOOTER -->
+        <footer class="footer">
+            <p>© 2026 <strong>Yan.</strong> Personal Portfolio</p>
+            <p>Dibuat dengan kreativitas dan ☕</p>
+        </footer>
+
     </main>
 
-    <!-- Menghubungkan file JavaScript -->
-    <script src="script.js"></script>
+    <script>
+        const tombolTema = document.getElementById('tombol-tema');
+        const inputCari = document.getElementById('cari');
+        const kartuProyek = document.querySelectorAll('.kartu');
+        const pesanKosong = document.getElementById('pesan-kosong');
+        const jumlahProyek = document.getElementById('jumlah-proyek');
+
+        // MODE GELAP DAN TERANG
+        tombolTema.addEventListener('click', function () {
+            document.body.classList.toggle('mode-gelap');
+
+            const modeGelap =
+                document.body.classList.contains('mode-gelap');
+
+            tombolTema.textContent = modeGelap
+                ? '☀ Mode terang'
+                : '☾ Mode gelap';
+        });
+
+        // PENCARIAN PROYEK
+        inputCari.addEventListener('input', function () {
+            const kataKunci = inputCari.value.toLowerCase().trim();
+            let jumlahTampil = 0;
+
+            kartuProyek.forEach(function (kartu) {
+                const teks = kartu.textContent.toLowerCase();
+                const cocok = teks.includes(kataKunci);
+
+                kartu.style.display = cocok ? 'flex' : 'none';
+
+                if (cocok) {
+                    jumlahTampil++;
+                }
+            });
+
+            pesanKosong.style.display =
+                jumlahTampil === 0 ? 'block' : 'none';
+
+            jumlahProyek.textContent =
+                String(jumlahTampil).padStart(2, '0') + ' Proyek';
+        });
+    </script>
+
 </body>
 </html>
